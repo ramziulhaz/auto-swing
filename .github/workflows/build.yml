@@ -1,0 +1,25 @@
+name: Build wasm
+
+on:
+push:
+workflow_dispatch:
+
+jobs:
+build:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v4
+
+```
+  - name: Install wasm target
+    run: rustup target add wasm32-unknown-unknown
+
+  - name: Build
+    run: cargo build --release --target wasm32-unknown-unknown
+
+  - name: Upload auto_sway.wasm
+    uses: actions/upload-artifact@v4
+    with:
+      name: auto_sway
+      path: target/wasm32-unknown-unknown/release/auto_sway.wasm
+```
